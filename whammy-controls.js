@@ -1,1 +1,17 @@
-function decorateWhammyCounters(){document.querySelectorAll('#whammyButtons .big-counter').forEach(card=>{if(card.dataset.whammyReady==='1')return;const up=card.querySelector('button');const count=card.querySelector('strong');if(!up||!count)return;const call=up.getAttribute('onclick')||'';const m=call.match(/bump\((\d+),'whammies',(\d+)\)/);if(!m)return;const pid=Number(m[1]),current=Number(m[2]);card.dataset.whammyReady='1';up.classList.add('whammy-up');const controls=document.createElement('div');controls.className='whammy-controls';const down=document.createElement('button');down.type='button';down.className='whammy-down';down.disabled=current<=0;down.setAttribute('aria-label','Decrease Whammy');down.onclick=async()=>{if(current<=0)return;const {data:old,error}=await sb.from('card_game_stats').select('*').eq('night_id',nightId).eq('player_id',pid).maybeSingle();if(error)return alert(error.message);if(!old)return;const {error:saveError}=await sb.from('card_game_stats').upsert({...old,whammies:Math.max(0,current-1)},{onConflict:'night_id,player_id'});if(saveError)return alert(saveError.message);loadGame()};count.before(controls);controls.append(down,count,up)})}const whammyObserver=new MutationObserver(()=>decorateWhammyCounters());const whammyRoot=document.getElementById('whammyButtons');if(whammyRoot)whammyObserver.observe(whammyRoot,{childList:true});decorateWhammyCounters();
+const WHAMMY_SEASON='2026 American';
+async function loadWhammySeason(){
+ const {data:p,error:pe}=await sb.from('card_game_players').select('*').eq('active',true).order('display_order');
+ if(pe)return alert(pe.message);
+ const {data:s,error:se}=await sb.from('card_game_season_stats').select('*').eq('season',WHAMMY_SEASON);
+ if(se)return alert(se.message);
+ const map=Object.fromEntries((s||[]).map(r=>[r.player_id,r]));
+ const el=document.getElementById('whammyButtons');if(!el)return;
+ el.innerHTML=(p||[]).map(player=>{const row=map[player.id]||{};const value=row.whammies||0;return `<div class="big-counter"><h3>${player.name}</h3><div class="whammy-controls"><button class="whammy-down" ${value<=0?'disabled':''} onclick="whammyBump(${player.id},-1)" aria-label="Decrease ${player.name} Whammy">▼</button><strong>${value}</strong><button class="whammy-up" onclick="whammyBump(${player.id},1)" aria-label="Increase ${player.name} Whammy">▲</button></div></div>`}).join('');
+}
+window.whammyBump=async(pid,delta)=>{
+ const {data:old,error}=await sb.from('card_game_season_stats').select('*').eq('season',WHAMMY_SEASON).eq('player_id',pid).maybeSingle();if(error)return alert(error.message);
+ const row={season:WHAMMY_SEASON,player_id:pid,assassinations:old?.assassinations||0,self_inflictions:old?.self_inflictions||0,whammies:Math.max(0,(old?.whammies||0)+delta),updated_at:new Date().toISOString()};
+ const {error:saveError}=await sb.from('card_game_season_stats').upsert(row,{onConflict:'season,player_id'});if(saveError)return alert(saveError.message);loadWhammySeason();
+};
+window.loadWhammySeason=loadWhammySeason;
+const whammyNav=document.querySelector('.nav[data-view="whammyGame"]');if(whammyNav)whammyNav.addEventListener('click',()=>setTimeout(loadWhammySeason,0));
