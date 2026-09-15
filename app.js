@@ -4,7 +4,7 @@ const num=v=>v===''||v==null?null:Number(v), handicap=a=>a==null?0:Math.max(0,Ma
 $$('.nav').forEach(b=>b.onclick=()=>{$$('.nav,.view').forEach(x=>x.classList.remove('active'));b.classList.add('active');$('#'+b.dataset.view).classList.add('active');if(b.dataset.view==='kill')loadGame()});
 function blankWeek(w){return {season:'2026 American',week:w,starting_avg:null,game1:null,game2:null,game3:null,opponent_avg:null,opponent_game1:null,opponent_game2:null,opponent_game3:null}}
 function gameResult(r,i){const m=[r.game1,r.game2,r.game3][i],o=[r.opponent_game1,r.opponent_game2,r.opponent_game3][i];if(m==null||o==null)return '';return m+handicap(r.starting_avg)>o+handicap(r.opponent_avg)?'W':m+handicap(r.starting_avg)<o+handicap(r.opponent_avg)?'L':'T'}
-function calcPoints(r){return [0,1,2].filter(i=>gameResult(r,i)==='W').length}
+function calcPoints(r){return [0,1,2].reduce((points,i)=>points+(gameResult(r,i)==='W'?1:gameResult(r,i)==='T'?.5:0),0)}
 function series(r,p=''){const a=[r[p+'game1'],r[p+'game2'],r[p+'game3']];return a.every(v=>v!=null)?a.reduce((x,y)=>x+Number(y),0):''}
 function runningAverage(through){let pins=0,games=0;scores.filter(x=>x.week<=through).sort((a,b)=>a.week-b.week).forEach(r=>[r.game1,r.game2,r.game3].forEach(v=>{if(v!=null){pins+=Number(v);games++}}));return games?Math.round(pins/games):''}
 async function loadScores(){const {data,error}=await sb.from('league_scores').select('*').eq('season','2026 American').order('week');if(error)return alert(error.message);scores=data||[];if(!scores.some(r=>r.week===1))scores.unshift(blankWeek(1));renderWeeks();$('#wins').textContent=scores.reduce((a,r)=>a+calcPoints(r),0)}
