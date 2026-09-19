@@ -26,3 +26,9 @@
 #kill .center-art{background:#080000!important;display:flex!important;align-items:center!important;justify-content:center!important}
 #kill .center-art img{width:100%!important;height:auto!important;max-width:100%!important;object-fit:contain!important;object-position:center!important;transform:none!important}
 @media(max-width:720px){#kill{background:#080000!important}#kill .center-art{background:#080000!important}#kill .center-art img{width:100%!important;height:auto!important;max-width:100%!important;object-fit:contain!important;transform:none!important}}
+
+/* v50: purpose-built tall card art */
+#kill{background:#050505!important}
+#kill .center-art{background:#050505!important}
+#kill .center-art img{width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;object-position:center!important}
+@media(max-width:720px){#kill{background:#050505!important}#kill .center-art{background:#050505!important}#kill .center-art img{width:100%!important;height:100%!important;object-fit:cover!important;object-position:center!important}}
