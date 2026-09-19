@@ -35,3 +35,11 @@
 
 /* v51: correct newly uploaded vertical card artwork */
 #kill .center-art img{width:100%!important;height:100%!important;object-fit:cover!important;object-position:center!important}
+
+/* v52: narrow the bowler panel and restore right-side breathing room */
+#kill .panel{grid-template-columns:minmax(0,40%) minmax(0,57%)!important;justify-content:space-between!important;padding-left:4px!important;padding-right:12px!important}
+#kill .chamber{width:100%!important;justify-self:end!important}
+@media(max-width:720px){
+ #kill .panel{grid-template-columns:minmax(0,40%) minmax(0,57%)!important;justify-content:space-between!important;padding-left:2px!important;padding-right:9px!important}
+ #kill .chamber{width:100%!important;justify-self:end!important}
+}
