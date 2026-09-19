@@ -19,3 +19,10 @@
  #kill .center-art img{width:100%!important;height:100%!important;max-width:none!important;object-fit:fill!important;object-position:center!important;transform:none!important}
  #kill .chamber{margin-top:22px!important;align-self:stretch!important}
 }
+
+/* v49: unified black canvas; preserve card-art proportions */
+#kill{background:#080000!important}
+#kill:before{display:none!important;content:none!important}
+#kill .center-art{background:#080000!important;display:flex!important;align-items:center!important;justify-content:center!important}
+#kill .center-art img{width:100%!important;height:auto!important;max-width:100%!important;object-fit:contain!important;object-position:center!important;transform:none!important}
+@media(max-width:720px){#kill{background:#080000!important}#kill .center-art{background:#080000!important}#kill .center-art img{width:100%!important;height:auto!important;max-width:100%!important;object-fit:contain!important;transform:none!important}}
