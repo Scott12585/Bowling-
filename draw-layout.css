@@ -7,3 +7,15 @@
 #kill .chamber:before,#kill .chamber:after{display:none!important;content:none!important}
 #kill .chamber-player:after{display:none!important;content:none!important}
 @media(max-width:720px){#kill .panel{align-items:stretch!important}#kill .center-art{min-height:0!important;height:auto!important;align-self:stretch!important;padding-top:22px!important}#kill .center-art img{width:100%!important;height:100%!important;object-fit:contain!important;object-position:center!important}#kill .chamber{margin-top:22px!important;align-self:stretch!important;justify-content:space-evenly!important}}
+
+/* v48: make left card artwork a full-height cohesive companion to the bowler panel */
+#kill .panel{align-items:stretch!important}
+#kill .center-art{height:auto!important;min-height:0!important;align-self:stretch!important;margin-top:22px!important;padding:0!important;background:#080000!important;overflow:hidden!important;border-radius:0!important;filter:none!important}
+#kill .center-art:before,#kill .center-art:after{display:none!important;content:none!important}
+#kill .center-art img{display:block!important;width:100%!important;height:100%!important;max-width:none!important;object-fit:fill!important;object-position:center!important;margin:0!important;transform:none!important}
+#kill .chamber{margin-top:22px!important;align-self:stretch!important}
+@media(max-width:720px){
+ #kill .center-art{height:auto!important;min-height:0!important;align-self:stretch!important;margin-top:22px!important;padding:0!important;background:#080000!important}
+ #kill .center-art img{width:100%!important;height:100%!important;max-width:none!important;object-fit:fill!important;object-position:center!important;transform:none!important}
+ #kill .chamber{margin-top:22px!important;align-self:stretch!important}
+}
