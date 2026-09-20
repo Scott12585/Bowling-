@@ -42,3 +42,7 @@
  #winsGame .wins-board{width:62%!important;margin-left:auto!important;margin-right:3%!important}
  #winsGame .wins-heading h2{font-size:30px!important}
 }
+
+/* v59: lower Games Won leaderboard */
+#winsGame .wins-board{margin-top:42px!important}
+@media(max-width:720px){#winsGame .wins-board{margin-top:46px!important}}
