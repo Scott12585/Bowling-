@@ -21,3 +21,9 @@
 #winsGame .season-win-controls button{width:25px!important;height:31px!important;min-width:0!important;padding:0!important;margin:0!important;border-radius:6px!important;border:1px solid #9b6d2e!important;background:#5d111d!important;color:#f8e9c9!important;font-size:12px!important}
 #winsGame .season-win-controls button:disabled{opacity:.3}
 @media(max-width:720px){#winsGame{min-height:690px;padding:14px 8px 30px;background-position:42% top}#winsGame .wins-heading{text-align:right;padding-right:12px;margin-bottom:12px}#winsGame .wins-heading h2{font-size:31px}#winsGame .wins-heading span{font-size:8px;letter-spacing:3px}#winsGame .wins-board{width:59%;margin-right:5px}#winsGame .wins-board-head,#winsGame .season-win-card{grid-template-columns:25px minmax(0,1fr) 36px 50px;gap:3px;padding-left:5px;padding-right:5px}#winsGame .season-win-card{min-height:65px}#winsGame .win-rank{font-size:16px}#winsGame .season-win-card h3{font-size:12px}#winsGame .win-total{font-size:21px;padding:5px 1px}#winsGame .season-win-controls button{width:23px!important;height:29px!important;font-size:11px!important}}
+
+/* v55: full-bleed Games Won page */
+#winsGame{margin:-24px -16px -60px!important;padding:22px 14px 80px!important;min-height:calc(100vh - 120px)!important;background-size:cover!important;background-position:left center!important}
+#winsGame .wins-board{display:block!important;visibility:visible!important}
+#winsGame #winsButtons{display:block!important}
+@media(max-width:720px){#winsGame{margin:-24px -16px -60px!important;padding:18px 10px 76px!important;min-height:calc(100vh - 100px)!important;background-size:cover!important;background-position:34% center!important}}
