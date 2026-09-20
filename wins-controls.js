@@ -7,7 +7,7 @@ async function loadSeasonWins(){
   const {data:s,error:se}=await winsSb.from('card_game_stats').select('player_id,games_won,card_game_nights!inner(season)').eq('card_game_nights.season','2026 American');
   if(se)return alert(se.message);
   const totals={}; seasonWinPlayers.forEach(p=>totals[p.id]=0); (s||[]).forEach(r=>{if(totals[r.player_id]!=null)totals[r.player_id]+=Number(r.games_won||0)});
-  box.innerHTML=seasonWinPlayers.map(p=>`<div class="big-counter season-win-card"><h3>${p.name}</h3><div class="season-win-controls"><button class="season-win-down" onclick="changeSeasonWin(${p.id},-1,${totals[p.id]||0})" ${(totals[p.id]||0)<=0?'disabled':''}>▼</button><strong>${totals[p.id]||0}</strong><button class="season-win-up" onclick="changeSeasonWin(${p.id},1,${totals[p.id]||0})">▲</button></div></div>`).join('');
+  const ranked=[...seasonWinPlayers].sort((a,b)=>(totals[b.id]||0)-(totals[a.id]||0)||a.display_order-b.display_order);\n  box.innerHTML=ranked.map((p,i)=>`<div class="season-win-card rank-${i+1}"><span class="win-rank">${i+1}</span><h3>${p.name}</h3><strong class="win-total">${totals[p.id]||0}</strong><div class="season-win-controls"><button class="season-win-down" onclick="changeSeasonWin(${p.id},-1,${totals[p.id]||0})" ${(totals[p.id]||0)<=0?'disabled':''}>▼</button><button class="season-win-up" onclick="changeSeasonWin(${p.id},1,${totals[p.id]||0})">▲</button></div></div>`).join('');
 }
 window.changeSeasonWin=async(pid,delta,total)=>{
   if(delta<0&&total<=0)return;
