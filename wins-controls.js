@@ -3,19 +3,27 @@ let seasonWinPlayers=[];
 async function loadSeasonWins(){
   const box=document.querySelector('#winsButtons'); if(!box)return;
   const {data:p,error:pe}=await winsSb.from('card_game_players').select('*').eq('active',true).order('display_order');
-  if(pe)return alert(pe.message); seasonWinPlayers=p||[];
+  if(pe){box.innerHTML='<div class="wins-error">Could not load players</div>';return}
+  seasonWinPlayers=p||[];
   const {data:s,error:se}=await winsSb.from('card_game_stats').select('player_id,games_won,card_game_nights!inner(season)').eq('card_game_nights.season','2026 American');
-  if(se)return alert(se.message);
-  const totals={}; seasonWinPlayers.forEach(p=>totals[p.id]=0); (s||[]).forEach(r=>{if(totals[r.player_id]!=null)totals[r.player_id]+=Number(r.games_won||0)});
-  const ranked=[...seasonWinPlayers].sort((a,b)=>(totals[b.id]||0)-(totals[a.id]||0)||a.display_order-b.display_order);\n  box.innerHTML=ranked.map((p,i)=>`<div class="season-win-card rank-${i+1}"><span class="win-rank">${i+1}</span><h3>${p.name}</h3><strong class="win-total">${totals[p.id]||0}</strong><div class="season-win-controls"><button class="season-win-down" onclick="changeSeasonWin(${p.id},-1,${totals[p.id]||0})" ${(totals[p.id]||0)<=0?'disabled':''}>▼</button><button class="season-win-up" onclick="changeSeasonWin(${p.id},1,${totals[p.id]||0})">▲</button></div></div>`).join('');
+  if(se){box.innerHTML='<div class="wins-error">Could not load wins</div>';return}
+  const totals={};
+  seasonWinPlayers.forEach(p=>totals[p.id]=0);
+  (s||[]).forEach(r=>{if(totals[r.player_id]!=null)totals[r.player_id]+=Number(r.games_won||0)});
+  const ranked=[...seasonWinPlayers].sort((a,b)=>(totals[b.id]||0)-(totals[a.id]||0)||a.display_order-b.display_order);
+  box.innerHTML=ranked.map((p,i)=>'<div class="season-win-card rank-'+(i+1)+'"><span class="win-rank">'+(i+1)+'</span><h3>'+p.name+'</h3><strong class="win-total">'+(totals[p.id]||0)+'</strong><div class="season-win-controls"><button class="season-win-down" onclick="changeSeasonWin('+p.id+',-1,'+(totals[p.id]||0)+')" '+((totals[p.id]||0)<=0?'disabled':'')+'>▼</button><button class="season-win-up" onclick="changeSeasonWin('+p.id+',1,'+(totals[p.id]||0)+')">▲</button></div></div>').join('');
 }
 window.changeSeasonWin=async(pid,delta,total)=>{
   if(delta<0&&total<=0)return;
   let {data:n,error:ne}=await winsSb.from('card_game_nights').select('*').eq('season','2026 American').eq('week',1).maybeSingle();
-  if(ne)return alert(ne.message); if(!n){const r=await winsSb.from('card_game_nights').insert({season:'2026 American',week:1}).select().single();if(r.error)return alert(r.error.message);n=r.data}
-  const {data:old,error:oe}=await winsSb.from('card_game_stats').select('*').eq('night_id',n.id).eq('player_id',pid).maybeSingle(); if(oe)return alert(oe.message);
+  if(ne)return alert(ne.message);
+  if(!n){const r=await winsSb.from('card_game_nights').insert({season:'2026 American',week:1}).select().single();if(r.error)return alert(r.error.message);n=r.data}
+  const {data:old,error:oe}=await winsSb.from('card_game_stats').select('*').eq('night_id',n.id).eq('player_id',pid).maybeSingle();
+  if(oe)return alert(oe.message);
   const current=Number(old?.games_won||0),next=Math.max(0,current+delta);
   const row=old?{...old,games_won:next}:{night_id:n.id,player_id:pid,games_won:next};
-  const {error}=await winsSb.from('card_game_stats').upsert(row,{onConflict:'night_id,player_id'}); if(error)return alert(error.message); await loadSeasonWins();
+  const {error}=await winsSb.from('card_game_stats').upsert(row,{onConflict:'night_id,player_id'});
+  if(error)return alert(error.message);
+  await loadSeasonWins();
 };
-document.querySelector('[data-view="winsGame"]')?.addEventListener('click',()=>setTimeout(loadSeasonWins,250));
+document.querySelector('[data-view="winsGame"]')?.addEventListener('click',()=>setTimeout(loadSeasonWins,50));
