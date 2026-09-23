@@ -58,3 +58,12 @@
 .thanos-overlay.show{display:flex}
 .thanos-overlay img{width:100vw;height:100vh;object-fit:cover;object-position:center;display:block}
 @media(max-width:720px){#kill .thanos-button{margin:6px auto 10px;padding:8px 22px;font-size:14px}.thanos-overlay img{width:100vw;height:100dvh;object-fit:cover}}
+
+/* v61: one-shot Thanos video, white hold, dust-away return */
+.thanos-overlay video{width:100vw;height:100dvh;object-fit:cover;object-position:center;display:block}
+.thanos-overlay .thanos-white{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;transition:opacity .12s linear}
+.thanos-overlay.white .thanos-white{opacity:1}
+.thanos-overlay.dust{animation:thanosDustAway .9s ease-in forwards}
+.thanos-overlay.dust .thanos-white{animation:thanosDustTexture .9s ease-in forwards}
+@keyframes thanosDustAway{0%{opacity:1;filter:blur(0)}35%{opacity:.92;filter:blur(1px)}100%{opacity:0;filter:blur(12px)}}
+@keyframes thanosDustTexture{0%{opacity:1;transform:scale(1);clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}45%{opacity:.9;transform:scale(1.01);clip-path:polygon(0 0,92% 3%,98% 13%,91% 21%,100% 30%,93% 40%,99% 51%,91% 61%,100% 72%,92% 82%,98% 91%,87% 100%,0 100%)}100%{opacity:0;transform:scale(1.08);filter:blur(14px);clip-path:polygon(0 3%,72% 0,60% 10%,78% 18%,55% 27%,73% 37%,48% 46%,68% 57%,41% 67%,59% 76%,32% 87%,45% 100%,0 97%)}}
