@@ -51,3 +51,10 @@
  #kill .chamber-player,#kill .chamber-player.p0,#kill .chamber-player.p1,#kill .chamber-player.p2,#kill .chamber-player.p3,#kill .chamber-player.p4,#kill .chamber-player.p5{padding-left:3px!important;padding-right:3px!important}
  #kill .small-counter{grid-template-columns:minmax(0,1fr) 16px 22px 22px!important}
 }
+
+/* v60: Thanos full-screen GIF trigger */
+#kill .thanos-button{display:block;margin:8px auto 12px;padding:9px 24px;border:2px solid #9b6d2e;border-radius:9px;background:linear-gradient(#741c29,#4c0d16);color:#f5e6c7;font-family:'Alfa Slab One',serif;font-size:15px;letter-spacing:.5px;box-shadow:0 3px 10px rgba(0,0,0,.5)}
+.thanos-overlay{display:none;position:fixed;inset:0;z-index:99999;background:#000;align-items:center;justify-content:center;overflow:hidden}
+.thanos-overlay.show{display:flex}
+.thanos-overlay img{width:100vw;height:100vh;object-fit:cover;object-position:center;display:block}
+@media(max-width:720px){#kill .thanos-button{margin:6px auto 10px;padding:8px 22px;font-size:14px}.thanos-overlay img{width:100vw;height:100dvh;object-fit:cover}}
