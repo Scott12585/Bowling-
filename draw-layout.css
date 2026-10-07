@@ -82,3 +82,24 @@
 #kill .small-counter>.arrow-up{grid-column:2!important}
 #kill .small-counter>strong{grid-column:3!important}
 #kill .small-counter>.arrow-down{grid-column:4!important}
+
+/* v66: Kill Cards two-column stat layout */
+#kill .chamber-player,#kill .chamber-player.p0,#kill .chamber-player.p1,#kill .chamber-player.p2,#kill .chamber-player.p3,#kill .chamber-player.p4,#kill .chamber-player.p5{display:block!important;padding:11px 7px 13px!important}
+#kill .player-heading{display:flex!important;align-items:center!important;justify-content:center!important;gap:7px!important;margin:0 0 10px!important;text-align:center!important}
+#kill .player-heading h3{margin:0!important;text-align:center!important}
+#kill .kill-stat-grid{display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important;align-items:start!important}
+#kill .kill-stat-grid .small-counter{display:grid!important;grid-template-columns:1fr!important;grid-template-rows:auto 34px!important;gap:6px!important;justify-items:center!important;align-items:center!important}
+#kill .kill-stat-grid .small-counter>span{grid-column:1!important;grid-row:1!important;width:100%!important;text-align:center!important;font-size:8px!important;line-height:1.05!important;white-space:nowrap!important}
+#kill .kill-stat-grid .small-counter>.arrow-up,#kill .kill-stat-grid .small-counter>strong,#kill .kill-stat-grid .small-counter>.arrow-down{grid-row:2!important}
+#kill .kill-stat-grid .small-counter>.arrow-up{grid-column:1!important;justify-self:start!important;margin-left:2px!important}
+#kill .kill-stat-grid .small-counter>strong{grid-column:1!important;justify-self:center!important;width:22px!important;min-width:22px!important;text-align:center!important;font-size:15px!important}
+#kill .kill-stat-grid .small-counter>.arrow-down{grid-column:1!important;justify-self:end!important;margin-right:2px!important}
+#kill .kill-stat-grid .small-counter button{width:29px!important;min-width:29px!important;max-width:29px!important;height:30px!important}
+@media(max-width:720px){
+ #kill .chamber-player,#kill .chamber-player.p0,#kill .chamber-player.p1,#kill .chamber-player.p2,#kill .chamber-player.p3,#kill .chamber-player.p4,#kill .chamber-player.p5{padding:9px 5px 11px!important}
+ #kill .player-heading{margin-bottom:8px!important}
+ #kill .kill-stat-grid{gap:5px!important}
+ #kill .kill-stat-grid .small-counter>span{font-size:7px!important}
+ #kill .kill-stat-grid .small-counter button{width:27px!important;min-width:27px!important;max-width:27px!important;height:28px!important}
+ #kill .kill-stat-grid .small-counter>strong{font-size:14px!important}
+}
