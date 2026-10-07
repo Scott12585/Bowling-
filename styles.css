@@ -46,3 +46,14 @@
 /* v59: lower Games Won leaderboard */
 #winsGame .wins-board{margin-top:42px!important}
 @media(max-width:720px){#winsGame .wins-board{margin-top:46px!important}}
+
+/* v62: Games Won controls = UP | number | DOWN */
+#winsGame .season-win-card{grid-template-columns:32px minmax(0,1fr) 132px!important}
+#winsGame .wins-board-head{grid-template-columns:32px minmax(0,1fr) 132px!important}
+#winsGame .wins-board-head span:nth-child(3){text-align:center!important}
+#winsGame .wins-board-head span:nth-child(4){display:none!important}
+#winsGame .season-win-controls{display:grid!important;grid-template-columns:36px 48px 36px!important;align-items:center!important;justify-content:center!important;gap:6px!important}
+#winsGame .season-win-controls .win-total{margin:0!important;width:48px!important}
+#winsGame .season-win-controls button{width:36px!important;height:38px!important;font-size:16px!important;font-weight:1000!important;border-width:2px!important;box-shadow:0 2px 0 #2a090e,0 0 7px rgba(216,182,109,.3)!important}
+#winsGame .season-win-controls button span{display:block;font-size:6px!important;line-height:6px!important;letter-spacing:.03em!important}
+@media(max-width:720px){#winsGame .wins-board-head,#winsGame .season-win-card{grid-template-columns:25px minmax(0,1fr) 112px!important}#winsGame .season-win-controls{grid-template-columns:31px 42px 31px!important;gap:4px!important}#winsGame .season-win-controls .win-total{width:42px!important}#winsGame .season-win-controls button{width:31px!important;height:34px!important;font-size:14px!important}#winsGame .season-win-controls button span{font-size:5px!important;line-height:5px!important}}
