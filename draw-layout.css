@@ -103,3 +103,9 @@
  #kill .kill-stat-grid .small-counter button{width:27px!important;min-width:27px!important;max-width:27px!important;height:28px!important}
  #kill .kill-stat-grid .small-counter>strong{font-size:14px!important}
 }
+
+/* v68: divider between Kill Card stat sections */
+#kill .kill-stat-grid{position:relative!important}
+#kill .kill-stat-grid:after{content:"";position:absolute;top:1px;bottom:1px;left:50%;width:1px;background:linear-gradient(to bottom,transparent,#9b6d2e 16%,#9b6d2e 84%,transparent);opacity:.85;pointer-events:none}
+#kill .kill-stat-grid .small-counter:first-child{padding-right:5px!important}
+#kill .kill-stat-grid .small-counter:last-child{padding-left:5px!important}
