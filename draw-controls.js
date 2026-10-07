@@ -1,2 +1,14 @@
-function addSeasonControls(){document.querySelectorAll('#killChamber .small-counter').forEach(row=>{const plus=row.querySelector('button:not(.minus-count)');if(!plus||plus.classList.contains('arrow-up'))return;const call=plus.getAttribute('onclick')||'';const m=call.match(/bump\((\d+),'([^']+)',(\d+)\)/);if(!m)return;const pid=Number(m[1]),key=m[2],current=Number(m[3]);plus.classList.add('arrow-count','arrow-up');plus.textContent='▲';plus.setAttribute('aria-label','Increase by 1');plus.title='Increase by 1';const minus=document.createElement('button');minus.type='button';minus.className='minus-count arrow-count arrow-down';minus.textContent='▼';minus.setAttribute('aria-label','Decrease by 1');minus.title='Decrease by 1';minus.disabled=current<=0;minus.onclick=async()=>{if(current<=0)return;const {data:old}=await sb.from('card_game_stats').select('*').eq('night_id',nightId).eq('player_id',pid).maybeSingle();if(!old)return;const rowData={...old,[key]:Math.max(0,current-1)};const {error}=await sb.from('card_game_stats').upsert(rowData,{onConflict:'night_id,player_id'});if(error)return alert(error.message);loadGame()};row.insertBefore(minus,plus);})}
+function addSeasonControls(){
+ document.querySelectorAll('#killChamber .small-counter').forEach(row=>{
+  const plus=row.querySelector('button:not(.minus-count)');
+  if(!plus||plus.classList.contains('arrow-up'))return;
+  const call=plus.getAttribute('onclick')||'';
+  const m=call.match(/bump\((\d+),'([^']+)',(\d+)\)/);if(!m)return;
+  const pid=Number(m[1]),key=m[2],current=Number(m[3]),value=row.querySelector('strong');
+  plus.classList.add('arrow-count','arrow-up');plus.textContent='▲';plus.setAttribute('aria-label','Increase by 1');plus.title='Increase by 1';
+  const minus=document.createElement('button');minus.type='button';minus.className='minus-count arrow-count arrow-down';minus.textContent='▼';minus.setAttribute('aria-label','Decrease by 1');minus.title='Decrease by 1';minus.disabled=current<=0;
+  minus.onclick=async()=>{if(current<=0)return;const {data:old}=await sb.from('card_game_stats').select('*').eq('night_id',nightId).eq('player_id',pid).maybeSingle();if(!old)return;const rowData={...old,[key]:Math.max(0,current-1)};const {error}=await sb.from('card_game_stats').upsert(rowData,{onConflict:'night_id,player_id'});if(error)return alert(error.message);loadGame()};
+  if(value){row.insertBefore(plus,value);value.insertAdjacentElement('afterend',minus)}else{row.append(plus,minus)}
+ });
+}
 const seasonObserver=new MutationObserver(()=>addSeasonControls());seasonObserver.observe(document.getElementById('killChamber'),{childList:true,subtree:true});addSeasonControls();
