@@ -63,3 +63,12 @@
 #winsGame .season-win-controls .season-win-up{grid-column:1!important}
 #winsGame .season-win-controls .win-total{grid-column:2!important}
 #winsGame .season-win-controls .season-win-down{grid-column:3!important}
+
+/* v64 Games Won alignment */
+#winsGame .season-win-card{grid-template-columns:32px minmax(0,1fr) 116px!important;column-gap:1px!important;position:relative!important}
+#winsGame .wins-board-head{grid-template-columns:32px minmax(0,1fr) 116px!important;column-gap:1px!important}
+#winsGame .season-win-controls{width:108px!important;grid-template-columns:30px 40px 30px!important;gap:4px!important;justify-self:center!important;justify-content:center!important}
+#winsGame .season-win-controls .win-total{width:40px!important;height:38px!important;min-height:38px!important;padding:0!important;display:flex!important;align-items:center!important;justify-content:center!important;text-align:center!important;line-height:1!important}
+#winsGame .season-win-card.rank-rising{box-shadow:inset 0 0 24px rgba(255,214,90,.22)!important;background:linear-gradient(90deg,rgba(134,89,20,.30),rgba(0,0,0,0))!important}
+#winsGame .season-win-card.rank-falling{box-shadow:inset 0 0 16px rgba(118,29,43,.18)!important}
+@media(max-width:720px){#winsGame .season-win-card,#winsGame .wins-board-head{grid-template-columns:25px minmax(0,1fr) 106px!important;column-gap:0!important}#winsGame .season-win-controls{width:102px!important;grid-template-columns:29px 38px 29px!important;gap:3px!important;justify-self:center!important}#winsGame .season-win-controls .win-total{width:38px!important;height:36px!important;min-height:36px!important;padding:0!important}}
