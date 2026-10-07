@@ -13,3 +13,8 @@
 #whammyGame .big-counter.rank-rising{box-shadow:0 3px 0 #720000,0 0 18px rgba(255,216,61,.75)!important;background:#b51616!important}
 #whammyGame .big-counter.rank-falling{box-shadow:0 3px 0 #720000,0 0 10px rgba(101,0,0,.45)!important}
 @media(max-width:720px){#whammyGame .whammy-rank{left:4px!important;font-size:12px!important}}
+
+/* v68: ensure Whammy cards visibly slide between ranks */
+#whammyGame #whammyButtons{position:relative!important}
+#whammyGame .big-counter{will-change:transform!important;transform-origin:center!important}
+#whammyGame .big-counter.rank-rising{outline:2px solid rgba(255,216,61,.8)!important}
