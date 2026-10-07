@@ -2,6 +2,7 @@ const winsSb=supabase.createClient('https://qgkrwfwhweqyzlzgwair.supabase.co','s
 let seasonWinPlayers=[];
 async function loadSeasonWins(){
  const box=document.querySelector('#winsButtons');if(!box)return;
+ const oldRects={};box.querySelectorAll('.season-win-card[data-player-id]').forEach(el=>oldRects[el.dataset.playerId]=el.getBoundingClientRect());
  const {data:p,error:pe}=await winsSb.from('card_game_players').select('*').eq('active',true).order('display_order');
  if(pe){box.innerHTML='<div class="wins-error">Could not load players</div>';return}
  seasonWinPlayers=p||[];
@@ -10,7 +11,15 @@ async function loadSeasonWins(){
  const totals={};seasonWinPlayers.forEach(p=>totals[p.id]=0);
  (s||[]).forEach(r=>{if(totals[r.player_id]!=null)totals[r.player_id]+=Number(r.games_won||0)});
  const ranked=[...seasonWinPlayers].sort((a,b)=>(totals[b.id]||0)-(totals[a.id]||0)||a.display_order-b.display_order);
- box.innerHTML=ranked.map((p,i)=>'<div class="season-win-card rank-'+(i+1)+'"><span class="win-rank">'+(i+1)+'</span><h3>'+p.name+'</h3><div class="season-win-controls"><button class="season-win-up" onclick="changeSeasonWin('+p.id+',1,'+(totals[p.id]||0)+')" aria-label="Increase '+p.name+' wins">▲<span>UP</span></button><strong class="win-total">'+(totals[p.id]||0)+'</strong><button class="season-win-down" onclick="changeSeasonWin('+p.id+',-1,'+(totals[p.id]||0)+')" '+((totals[p.id]||0)<=0?'disabled':'')+' aria-label="Decrease '+p.name+' wins">▼<span>DOWN</span></button></div></div>').join('');
+ box.innerHTML=ranked.map((p,i)=>'<div class="season-win-card rank-'+(i+1)+'" data-player-id="'+p.id+'"><span class="win-rank">'+(i+1)+'</span><h3>'+p.name+'</h3><div class="season-win-controls"><button class="season-win-up" onclick="changeSeasonWin('+p.id+',1,'+(totals[p.id]||0)+')" aria-label="Increase '+p.name+' wins">▲<span>UP</span></button><strong class="win-total">'+(totals[p.id]||0)+'</strong><button class="season-win-down" onclick="changeSeasonWin('+p.id+',-1,'+(totals[p.id]||0)+')" '+((totals[p.id]||0)<=0?'disabled':'')+' aria-label="Decrease '+p.name+' wins">▼<span>DOWN</span></button></div></div>').join('');
+ requestAnimationFrame(()=>{
+  box.querySelectorAll('.season-win-card[data-player-id]').forEach(el=>{
+   const old=oldRects[el.dataset.playerId];if(!old)return;
+   const now=el.getBoundingClientRect(),dy=old.top-now.top;if(Math.abs(dy)<2)return;
+   el.style.transform='translateY('+dy+'px)';el.style.zIndex='4';el.classList.add(dy>0?'rank-rising':'rank-falling');
+   requestAnimationFrame(()=>{el.style.transition='transform .65s cubic-bezier(.22,.8,.25,1),box-shadow .65s ease,background .65s ease';el.style.transform='translateY(0)';setTimeout(()=>{el.style.transition='';el.style.transform='';el.style.zIndex='';el.classList.remove('rank-rising','rank-falling')},720)});
+  });
+ });
 }
 window.changeSeasonWin=async(pid,delta,total)=>{
  if(delta<0&&total<=0)return;
