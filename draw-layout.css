@@ -67,3 +67,11 @@
 .thanos-overlay.dust .thanos-white{animation:thanosDustTexture .9s ease-in forwards}
 @keyframes thanosDustAway{0%{opacity:1;filter:blur(0)}35%{opacity:.92;filter:blur(1px)}100%{opacity:0;filter:blur(12px)}}
 @keyframes thanosDustTexture{0%{opacity:1;transform:scale(1);clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}45%{opacity:.9;transform:scale(1.01);clip-path:polygon(0 0,92% 3%,98% 13%,91% 21%,100% 30%,93% 40%,99% 51%,91% 61%,100% 72%,92% 82%,98% 91%,87% 100%,0 100%)}100%{opacity:0;transform:scale(1.08);filter:blur(14px);clip-path:polygon(0 3%,72% 0,60% 10%,78% 18%,55% 27%,73% 37%,48% 46%,68% 57%,41% 67%,59% 76%,32% 87%,45% 100%,0 97%)}}
+
+/* v62: Kill Cards controls = UP | number | DOWN */
+#kill .small-counter{grid-template-columns:minmax(0,1fr) 30px 24px 30px!important;gap:4px!important}
+#kill .small-counter .arrow-up{grid-column:2!important}
+#kill .small-counter strong{grid-column:3!important;width:24px!important;min-width:24px!important}
+#kill .small-counter .arrow-down{grid-column:4!important}
+#kill .small-counter button{width:30px!important;min-width:30px!important;max-width:30px!important;height:29px!important;font-size:14px!important;font-weight:1000!important;border-width:2px!important;box-shadow:0 2px 0 #160000,0 0 7px rgba(180,123,49,.25)!important}
+@media(max-width:720px){#kill .small-counter{grid-template-columns:minmax(0,1fr) 28px 21px 28px!important;gap:3px!important}#kill .small-counter strong{width:21px!important;min-width:21px!important}#kill .small-counter button{width:28px!important;min-width:28px!important;max-width:28px!important;height:27px!important;font-size:13px!important}}
