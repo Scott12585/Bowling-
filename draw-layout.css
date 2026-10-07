@@ -75,3 +75,10 @@
 #kill .small-counter .arrow-down{grid-column:4!important}
 #kill .small-counter button{width:30px!important;min-width:30px!important;max-width:30px!important;height:29px!important;font-size:14px!important;font-weight:1000!important;border-width:2px!important;box-shadow:0 2px 0 #160000,0 0 7px rgba(180,123,49,.25)!important}
 @media(max-width:720px){#kill .small-counter{grid-template-columns:minmax(0,1fr) 28px 21px 28px!important;gap:3px!important}#kill .small-counter strong{width:21px!important;min-width:21px!important}#kill .small-counter button{width:28px!important;min-width:28px!important;max-width:28px!important;height:27px!important;font-size:13px!important}}
+
+/* v63: lock Kill Cards controls to one row */
+#kill .small-counter>span,#kill .small-counter>.arrow-up,#kill .small-counter>strong,#kill .small-counter>.arrow-down{grid-row:1!important}
+#kill .small-counter>span{grid-column:1!important}
+#kill .small-counter>.arrow-up{grid-column:2!important}
+#kill .small-counter>strong{grid-column:3!important}
+#kill .small-counter>.arrow-down{grid-column:4!important}
