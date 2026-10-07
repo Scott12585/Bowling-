@@ -109,3 +109,7 @@
 #kill .kill-stat-grid:after{content:"";position:absolute;top:1px;bottom:1px;left:50%;width:1px;background:linear-gradient(to bottom,transparent,#9b6d2e 16%,#9b6d2e 84%,transparent);opacity:.85;pointer-events:none}
 #kill .kill-stat-grid .small-counter:first-child{padding-right:5px!important}
 #kill .kill-stat-grid .small-counter:last-child{padding-left:5px!important}
+
+/* v69: emphasize Kill Card stat labels */
+#kill .kill-stat-grid .small-counter>span{font-size:10px!important;font-weight:900!important;letter-spacing:.04em!important;color:#e7d2a7!important;text-shadow:0 1px 2px #000!important}
+@media(max-width:720px){#kill .kill-stat-grid .small-counter>span{font-size:8.5px!important;font-weight:900!important;letter-spacing:.025em!important}}
