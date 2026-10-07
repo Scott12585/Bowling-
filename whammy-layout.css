@@ -5,3 +5,11 @@
 #whammyGame .whammy-controls button span{display:block;font-size:6px!important;line-height:7px!important;letter-spacing:.04em!important;font-family:Arial,sans-serif!important}
 #whammyGame .whammy-controls strong{margin:0!important}
 @media(max-width:720px){#whammyGame .whammy-controls{grid-template-columns:34px 38px 34px!important;gap:4px!important}#whammyGame .whammy-controls button{width:34px!important;height:32px!important;font-size:15px!important}#whammyGame .whammy-controls button span{font-size:5px!important;line-height:5px!important}}
+
+/* v67: Whammy season ranking + Games Won-style movement */
+#whammyGame .big-counter{position:relative!important}
+#whammyGame .whammy-rank{position:absolute!important;left:5px!important;top:50%!important;transform:translateY(-50%)!important;font-family:'Alfa Slab One',serif!important;font-size:15px!important;color:#ffd83d!important;text-shadow:1px 1px 0 #650000!important}
+#whammyGame .big-counter.rank-1 .whammy-rank:before{content:"♛";display:block;font-size:8px;line-height:8px;text-align:center}
+#whammyGame .big-counter.rank-rising{box-shadow:0 3px 0 #720000,0 0 18px rgba(255,216,61,.75)!important;background:#b51616!important}
+#whammyGame .big-counter.rank-falling{box-shadow:0 3px 0 #720000,0 0 10px rgba(101,0,0,.45)!important}
+@media(max-width:720px){#whammyGame .whammy-rank{left:4px!important;font-size:12px!important}}
